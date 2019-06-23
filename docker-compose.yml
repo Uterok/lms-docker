@@ -1,0 +1,79 @@
+version: "3.4"
+
+services:
+    nginx:
+        build:
+            context: .
+            dockerfile: docker/Nginx.Dockerfile
+        ports:
+            - 8098:80
+        volumes:
+            - ./locketgo-lms-php:/var/www/locketgo-lms-php
+        links:
+            - fpm
+            - node
+
+    fpm:
+        build:
+            context: .
+            dockerfile: docker/Fpm.Dockerfile
+        volumes:
+            - ./locketgo-lms-php:/var/www/locketgo-lms-php
+            - ./locketgo-lms-vue/public:/var/www/locketgo-lms-php/public/assets
+            - ./supervisor/workers:/etc/supervisor/conf.d
+            - ./supervisor/config:/etc/supervisor
+            - ./supervisor/logs:/var/www/supervisor-logs
+        command: bash -c "supervisord -c /etc/supervisor/supervisord.conf"
+        links:
+            - mysql
+            - redis
+
+    node:
+        image: node
+        restart: always
+        ports:
+            - 4444:4444
+            - 6667:6667/udp
+        volumes: 
+            - ./locketgo-lms-node:/var/www/html/
+        working_dir: /var/www/html/
+        command: bash -c "npm run start"
+        links:
+            - mysql
+            - redis
+
+    adminer:
+        image: adminer
+        restart: always
+        ports:
+          - 6080:8080
+        links:
+            - mysql
+
+    mysql:
+        image: mysql:5.7
+        restart: always
+        ports:
+            - 33061:3306
+        environment:
+            - MYSQL_ROOT_PASSWORD=root
+            - MYSQL_DATABASE=lms
+        volumes:
+            - ./databases:/var/lib/mysql
+
+    redis:
+        image: redis
+        restart: always
+        ports:
+          - 6380:6379
+
+    udp_broadcast_redirect:
+        image: node
+        network_mode: "host"
+        restart: always
+        # ports:
+        #     - 6665:6665/udp
+        volumes: 
+            - ./udp-broadcast-redirect:/var/www/html/
+        working_dir: /var/www/html/
+        command: bash -c "node redirect.js"
