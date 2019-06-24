@@ -90,3 +90,19 @@
       /var/www/locketgo-lms-php/vendor/doctrine/dbal/lib/Doctrine/DBAL/Driver/PDOStatement.php:117
 
   Please use the argument -v to see more details.
+
+Warning: require(/var/www/locketgo-lms-php/vendor/autoload.php): failed to open stream: No such file or directory in /var/www/locketgo-lms-php/artisan on line 18
+
+Fatal error: require(): Failed opening required '/var/www/locketgo-lms-php/vendor/autoload.php' (include_path='.:/usr/local/lib/php') in /var/www/locketgo-lms-php/artisan on line 18
+
+Warning: require(/var/www/locketgo-lms-php/vendor/autoload.php): failed to open stream: No such file or directory in /var/www/locketgo-lms-php/artisan on line 18
+
+Fatal error: require(): Failed opening required '/var/www/locketgo-lms-php/vendor/autoload.php' (include_path='.:/usr/local/lib/php') in /var/www/locketgo-lms-php/artisan on line 18
+
+Warning: require(/var/www/locketgo-lms-php/vendor/autoload.php): failed to open stream: No such file or directory in /var/www/locketgo-lms-php/artisan on line 18
+
+Fatal error: require(): Failed opening required '/var/www/locketgo-lms-php/vendor/autoload.php' (include_path='.:/usr/local/lib/php') in /var/www/locketgo-lms-php/artisan on line 18
+
+Warning: require(/var/www/locketgo-lms-php/vendor/autoload.php): failed to open stream: No such file or directory in /var/www/locketgo-lms-php/artisan on line 18
+
+Fatal error: require(): Failed opening required '/var/www/locketgo-lms-php/vendor/autoload.php' (include_path='.:/usr/local/lib/php') in /var/www/locketgo-lms-php/artisan on line 18

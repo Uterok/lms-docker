@@ -1,0 +1,32 @@
+version: "3.4"
+
+services:
+    composer:
+        image: composer:1.6
+        volumes:
+            - ../locketgo-lms-php:/var/www/locketgo-lms-php
+        working_dir: /var/www/locketgo-lms-php
+        command: composer install --ignore-platform-reqs --no-scripts && chown -R www-data:www-data . && chmod -R 775 .
+
+    php_migrate_db:
+        image: php:7.3.6-fpm
+        volumes:
+            - ../locketgo-lms-php:/var/www/locketgo-lms-php
+        working_dir: /var/www/locketgo-lms-php
+        command: bash -c "php artisan migrate && php artisan db:seed"
+        links:
+            - mysql
+
+    node_lms_node:
+        image: node
+        volumes: 
+            - ../locketgo-lms-node:/var/www/html/
+        working_dir: /var/www/html/
+        command: bash -c "yarn"
+
+    node_lms_vue:
+        image: node
+        volumes: 
+            - ../locketgo-lms-vue:/var/www/html/
+        working_dir: /var/www/html/
+        command: bash -c "yarn & yarn dev"
