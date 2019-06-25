@@ -14,8 +14,6 @@ services:
             - ../locketgo-lms-php:/var/www/locketgo-lms-php
         working_dir: /var/www/locketgo-lms-php
         command: bash -c "php artisan key:generate && php artisan migrate && php artisan db:seed && chown -R www-data:www-data . && chmod -R 775 ."
-        links:
-            - mysql
 
     node_lms_node:
         image: node
