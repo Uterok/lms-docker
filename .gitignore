@@ -5,4 +5,5 @@
 /locketgo-lms-vue
 .DS_Store
 /*/.DS_Store
+/supervisor/logs
 tst.js
