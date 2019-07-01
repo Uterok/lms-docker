@@ -6,7 +6,8 @@ services:
             context: .
             dockerfile: docker/Nginx.Dockerfile
         ports:
-            - 8098:80
+            - 80:80
+        #     - 8098:80  
         volumes:
             - ./locketgo-lms-php:/var/www/locketgo-lms-php
             - ./locketgo-lms-vue/public:/var/www/locketgo-lms-php/public/assets
@@ -25,12 +26,17 @@ services:
             - ./supervisor/config:/etc/supervisor
             - ./supervisor/logs:/var/www/supervisor-logs
         command: bash -c "supervisord -c /etc/supervisor/supervisord.conf"
+        extra_hosts:
+            - "web_server_ip:192.168.0.100"
+            - "web_server_url:8f73fdb7.ngrok.io"
         links:
-            - mysql
+            # - mysql
             - redis
+            - pgsql
 
     node:
         image: node
+        # image: hypriot/rpi-node
         restart: always
         ports:
             - 4444:4444
@@ -40,10 +46,15 @@ services:
         working_dir: /var/www/html/
         command: bash -c "npm run start"
         extra_hosts: 
-            - host.network.broadcast: 192.168.0.255
+            # - "host.network.broadcast:192.168.0.100"
+            - "dockerhost:$DOCKERHOST"
+            - "web_server_ip:192.168.0.100"
+            - "web_server_url:8f73fdb7.ngrok.io"
         links:
-            - mysql
+            # - mysql
             - redis
+            - pgsql
+            - udp_broadcast_redirect
 
     adminer:
         image: adminer
@@ -51,19 +62,31 @@ services:
         ports:
           - 6080:8080
         links:
-            - mysql
+            # - mysql
+            - pgsql
 
-    mysql:
+    # mysql:
         # image: mysql:5.7
-        image: nidorpi/rpi-mysql5.7
+        # image: nidorpi/rpi-mysql5.7
+        # restart: always
+        # ports:
+        #     - 33061:3306
+        # environment:
+        #     - MYSQL_ROOT_PASSWORD=root
+        #     - MYSQL_DATABASE=lms
+        # volumes:
+        #     - ./databases:/var/lib/mysql
+
+    pgsql:
+        image: tobi312/rpi-postgresql
         restart: always
         ports:
-            - 33061:3306
+            - 5432:5432
         environment:
-            - MYSQL_ROOT_PASSWORD=root
-            - MYSQL_DATABASE=lms
+            - POSTGRES_PASSWORD=root
+            - POSTGRES_DB=lms
         volumes:
-            - ./databases:/var/lib/mysql
+            - ./databases:/var/lib/postgresql/data
 
     redis:
         image: redis
@@ -73,10 +96,11 @@ services:
 
     udp_broadcast_redirect:
         image: node
+        # image: hypriot/rpi-node
         network_mode: "host"
         restart: always
-        # ports:
-        #     - 6665:6665/udp
+        ports:
+            - 6665:6665/udp
         volumes: 
             - ./udp-broadcast-redirect:/var/www/html/
         working_dir: /var/www/html/

@@ -1,0 +1,57 @@
+#!/bin/bash
+echo -e "\e[32mUpdate repositories...\e[0m";
+sudo apt-get update;
+# sudo apt-get upgrade
+
+echo -e "\e[32mInstalling git...\e[0m";
+sudo apt-get install git-core;
+
+read -p "Input your github Username : " github_username;
+git config --global user.name "$github_username"
+echo -e "\e[94mGithub username set to $github_username\e[0m";
+
+read -p "Input your github Email : " github_email;
+git config --global user.email "$github_email";
+echo -e "\e[94mGithub email set to $github_email\e[0m";
+
+echo -e "\e[32mInstalling docker...\e[0m";
+sudo curl -fsSL get.docker.com -o get-docker.sh && sh get-docker.sh;
+sudo groupadd docker;
+sudo gpasswd -a pi docker;
+sudo rm get-docker.sh;
+
+echo -e "\e[32mInstalling docker-compose...\e[0m";
+sudo apt-get update;
+sudo apt-get install -y python python-pip;
+sudo pip install docker-compose==1.23.2;
+
+echo -e "\e[36mStarting configre lms server:\e[0m";
+
+mkdir /home/pi/lms-server;
+cd /home/pi/lms-server;
+
+echo -e "\e[32mClone docker deploy repository\e[0m";
+git clone https://github.com/Uterok/lms-docker.git
+cd lms-docker
+
+echo -e "\e[32mClone lms php module\e[0m";
+git clone https://github.com/locketgo-com/locketgo-lms-php.git
+
+echo -e "\e[32mClone lms node module\e[0m";
+git clone https://github.com/locketgo-com/locketgo-lms-node.git
+
+echo -e "\e[94mClone lms node vue\e[0m";
+git clone https://github.com/locketgo-com/locketgo-lms-vue.git
+
+echo -e "\e[36mStarting configre module:\e[0m";
+echo -e "\e[32mConfigure php module:\e[0m";
+cd locketgo-lms-php
+sudo cp .env.example.docker .env
+echo -e "\e[94mPhp module configured\e[0m";
+
+echo -e "\e[32mConfigure node module:\e[0m";
+cd ../locketgo-lms-node
+sudo cp .env.example.docker .env
+echo -e "\e[94mNode module configured\e[0m";
+
+echo -e "\e[32mInstall/Update dependencies:\e[0m";

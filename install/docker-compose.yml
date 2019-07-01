@@ -9,16 +9,19 @@ services:
         command: composer install --ignore-platform-reqs --no-scripts
 
     php_migrate_db:
-        image: php:7.3.6-fpm
+        build:
+            context: .
+            dockerfile: ../docker/Fpm.Dockerfile
         volumes:
             - ../locketgo-lms-php:/var/www/locketgo-lms-php
         working_dir: /var/www/locketgo-lms-php
         command: bash -c "php artisan key:generate && php artisan migrate && php artisan db:seed && chown -R www-data:www-data . && chmod -R 775 ."
         links:
-            - mysql
+            - pgsql
 
     node_lms_node:
         image: node
+        # image: hypriot/rpi-node
         volumes: 
             - ../locketgo-lms-node:/var/www/html/
         working_dir: /var/www/html/
@@ -26,19 +29,47 @@ services:
 
     node_lms_vue:
         image: node
+        # image: hypriot/rpi-node
         volumes: 
             - ../locketgo-lms-vue:/var/www/html/
         working_dir: /var/www/html/
-        command: bash -c "yarn & yarn dev"
+        command: bash -c "yarn && yarn dev"
 
-    mysql:
+    # mysql:
         # image: mysql:5.7
-        image: nidorpi/rpi-mysql5.7
+        # image: nidorpi/rpi-mysql5.7
+        # image: jsurf/rpi-mariadb:stretch
+        # restart: always
+        # ports:
+        #     - 33061:3306
+        # environment:
+        #     - MYSQL_ROOT_PASSWORD=root
+        #     - MYSQL_DATABASE=lms
+        #     - MYSQL_ROOT_HOST=%
+        # volumes:
+        #     - ../databases:/var/lib/mysql
+        #     - ../my.cnf:/etc/mysql/conf.d/my.cnf
+
+    pgsql:
+        image: tobi312/rpi-postgresql
         restart: always
         ports:
-            - 33061:3306
+            - 5432:5432
         environment:
-            - MYSQL_ROOT_PASSWORD=root
-            - MYSQL_DATABASE=lms
+            - POSTGRES_PASSWORD=root
+            - POSTGRES_DB=lms
         volumes:
-            - ../databases:/var/lib/mysql
+            - ../databases:/var/lib/postgresql/data
+    
+    # mysql:
+        # build:
+        #     context: .
+        #     dockerfile: ../docker/MSQLDeb.Dockerfile
+        # restart: always
+        # ports:
+        #     - 33061:3306
+        # environment:
+        #     - MYSQL_ROOT_PASSWORD=root
+        #     - MYSQL_DATABASE=lms
+        # volumes:
+        #     - ../databases:/var/lib/mysql
