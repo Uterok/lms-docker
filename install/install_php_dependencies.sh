@@ -9,6 +9,7 @@ echo -e "\e[94mComposer dependencies succesfully installed/updated\e[0m";
 echo -e "\e[32mMigrating and seeding databases:\e[0m";
 echo -e "\e[32mConfiguring databases:\e[0m";
 sudo docker-compose up -d pgsql 
+echo -e "\e[94mWait for 30 seconds to configure database...:\e[0m";
 sleep 30
 sudo docker-compose down
 
