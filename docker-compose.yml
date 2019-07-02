@@ -28,7 +28,7 @@ services:
         command: bash -c "supervisord -c /etc/supervisor/supervisord.conf"
         extra_hosts:
             - "web_server_ip:192.168.0.100"
-            - "web_server_url:8f73fdb7.ngrok.io"
+            - "web_server_url:0e1bf23b.ngrok.io"
         links:
             # - mysql
             - redis
@@ -49,7 +49,7 @@ services:
             # - "host.network.broadcast:192.168.0.100"
             - "dockerhost:$DOCKERHOST"
             - "web_server_ip:192.168.0.100"
-            - "web_server_url:8f73fdb7.ngrok.io"
+            - "web_server_url:0e1bf23b.ngrok.io"
         links:
             # - mysql
             - redis
