@@ -54,6 +54,8 @@ cd ../locketgo-lms-node
 sudo cp .env.example.docker .env
 echo -e "\e[94mNode module configured\e[0m";
 
+cd ..
+
 echo -e "\e[94mCreate databases folder\e[0m";
 mkdir databases;
 echo -e "\e[94mDatabases storage folder created\e[0m";
