@@ -64,8 +64,14 @@ echo -e "\e[94mDatabases storage folder created\e[0m";
 cd install
 . ./install_update_modules.sh
 
-#run lms server
+#add lms server start on bootup
+echo -e "\e[94mAdd lms server start on bootup\e[0m";
 cd ..
+sudo cp start_lms_server.sh /etc/init.d/start_lms_server.sh
+sudo chmod 755 /etc/init.d/start_lms_server.sh
+sudo update-rc.d start_lms_server.sh defaults
+echo -e "\e[94mSuccessfully added\e[0m";
+
+
+#run lms server
 . ./start_lms_server.sh
-
-

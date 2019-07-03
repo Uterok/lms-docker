@@ -5,6 +5,7 @@ services:
         build:
             context: .
             dockerfile: docker/Nginx.Dockerfile
+        restart: always
         ports:
             - 80:80
         #     - 8098:80  
@@ -19,6 +20,7 @@ services:
         build:
             context: .
             dockerfile: docker/Fpm.Dockerfile
+        restart: always
         volumes:
             - ./locketgo-lms-php:/var/www/locketgo-lms-php
             - ./locketgo-lms-vue/public:/var/www/locketgo-lms-php/public/assets
