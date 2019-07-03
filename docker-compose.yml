@@ -28,7 +28,6 @@ services:
         command: bash -c "supervisord -c /etc/supervisor/supervisord.conf"
         extra_hosts:
             - "web_server_ip:192.168.0.100"
-            - "web_server_url:0e1bf23b.ngrok.io"
         links:
             # - mysql
             - redis
@@ -46,10 +45,8 @@ services:
         working_dir: /var/www/html/
         command: bash -c "npm run start"
         extra_hosts: 
-            # - "host.network.broadcast:192.168.0.100"
             - "dockerhost:$DOCKERHOST"
             - "web_server_ip:192.168.0.100"
-            - "web_server_url:0e1bf23b.ngrok.io"
         links:
             # - mysql
             - redis
