@@ -1,7 +1,9 @@
 #!/bin/bash
 
 # set env variables
-sh ../export_env.sh
+cd ..
+. ./export_env.sh
+cd install
 
 echo -e "\e[36mInstall node dependencies:\e[0m";
 echo -e "\e[32mSocket server dependencies:\e[0m";
