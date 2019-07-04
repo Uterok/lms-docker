@@ -10,9 +10,9 @@ cd /home/pi/lms-server/lms-docker
 # sudo -E docker-compose up -d
 if [[ $OSTYPE =~ "linux-gnu" ]];
 then
-	sudo docker-compose up -d --scale udp_broadcast_redirect=0
+	sudo -E docker-compose up -d --scale udp_broadcast_redirect=0
 else
-	sudo docker-compose up -d
+	sudo -E docker-compose up -d
 fi
 # sudo docker-compose logs -f
 # sudo docker-compose down
