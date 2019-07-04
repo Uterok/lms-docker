@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # set env variables
-. ./export_env.sh
+sh ../export_env.sh
 
 echo -e "\e[36mInstall php dependencies:\e[0m";
 echo -e "\e[32mComposer dependencies:\e[0m";

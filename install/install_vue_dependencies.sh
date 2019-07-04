@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # set env variables
-. ./export_env.sh
+sh ../export_env.sh
 
 echo -e "\e[36mInstall vue dependencies:\e[0m";
 echo -e "\e[32mNodejs dependencies:\e[0m";
