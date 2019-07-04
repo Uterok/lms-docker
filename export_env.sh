@@ -1,0 +1,18 @@
+#!/bin/bash
+
+# set host ip to environment variable
+# export DOCKERHOST=$(ifconfig | grep -E "([0-9]{1,3}\.){3}[0-9]{1,3}" | grep -v 127.0.0.1 | awk '{ print $2 }' | cut -f2 -d: | head -n1)
+DOCKERHOST=$(ifconfig | grep -E "([0-9]{1,3}\.){3}[0-9]{1,3}" | grep -v 127.0.0.1 | awk '{ print $2 }' | cut -f2 -d: | head -n1)
+
+# check cpu architecture and choose correspond image
+# check architecture name on regexp
+if [[ $(arch) =~ "arm" ]];
+then
+	# export PGSQL_DOCKER_IMAGE="tobi312/rpi-postgresql"
+	NGINX_EXTERNAL_PORT=80
+	PGSQL_DOCKER_IMAGE="tobi312/rpi-postgresql"
+else
+	# export PGSQL_DOCKER_IMAGE="postgres"
+	NGINX_EXTERNAL_PORT=8098
+	PGSQL_DOCKER_IMAGE="postgres"
+fi

@@ -21,7 +21,6 @@ services:
 
     node_lms_node:
         image: node
-        # image: hypriot/rpi-node
         volumes: 
             - ../locketgo-lms-node:/var/www/html/
         working_dir: /var/www/html/
@@ -29,7 +28,6 @@ services:
 
     node_lms_vue:
         image: node
-        # image: hypriot/rpi-node
         volumes: 
             - ../locketgo-lms-vue:/var/www/html/
         working_dir: /var/www/html/
@@ -51,7 +49,8 @@ services:
         #     - ../my.cnf:/etc/mysql/conf.d/my.cnf
 
     pgsql:
-        image: tobi312/rpi-postgresql
+        # image: tobi312/rpi-postgresql
+        image: ${PGSQL_DOCKER_IMAGE}
         restart: always
         ports:
             - 5432:5432
@@ -60,16 +59,3 @@ services:
             - POSTGRES_DB=lms
         volumes:
             - ../databases:/var/lib/postgresql/data
-    
-    # mysql:
-        # build:
-        #     context: .
-        #     dockerfile: ../docker/MSQLDeb.Dockerfile
-        # restart: always
-        # ports:
-        #     - 33061:3306
-        # environment:
-        #     - MYSQL_ROOT_PASSWORD=root
-        #     - MYSQL_DATABASE=lms
-        # volumes:
-        #     - ../databases:/var/lib/mysql

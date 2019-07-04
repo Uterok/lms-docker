@@ -7,7 +7,7 @@ services:
             dockerfile: docker/Nginx.Dockerfile
         restart: always
         ports:
-            - 80:80
+            - ${NGINX_EXTERNAL_PORT}:80
         #     - 8098:80  
         volumes:
             - ./locketgo-lms-php:/var/www/locketgo-lms-php
@@ -37,7 +37,6 @@ services:
 
     node:
         image: node
-        # image: hypriot/rpi-node
         restart: always
         ports:
             - 4444:4444
@@ -77,7 +76,8 @@ services:
         #     - ./databases:/var/lib/mysql
 
     pgsql:
-        image: tobi312/rpi-postgresql
+        # image: tobi312/rpi-postgresql
+        image: ${PGSQL_DOCKER_IMAGE}
         restart: always
         ports:
             - 5432:5432
@@ -95,7 +95,6 @@ services:
 
     udp_broadcast_redirect:
         image: node
-        # image: hypriot/rpi-node
         network_mode: "host"
         restart: always
         ports:

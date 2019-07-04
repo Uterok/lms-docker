@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# set env variables
+. ./export_env.sh
+
 echo -e "\e[36mInstall node dependencies:\e[0m";
 echo -e "\e[32mSocket server dependencies:\e[0m";
 sudo docker-compose up node_lms_node
