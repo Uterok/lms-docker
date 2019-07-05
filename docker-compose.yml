@@ -77,8 +77,8 @@ services:
         #     - ./databases:/var/lib/mysql
 
     pgsql:
-        # image: tobi312/rpi-postgresql
-        image: ${PGSQL_DOCKER_IMAGE}
+        image: tobi312/rpi-postgresql
+        # image: ${PGSQL_DOCKER_IMAGE}
         restart: always
         ports:
             - 5432:5432
