@@ -21,8 +21,8 @@ cd locketgo-lms-php
 # else
 # 	sudo cp .env.example.docker.mac .env
 # fi
-sudo cp .env.example.docker .env
-sudo chmod -R 777 .
+cp .env.example.docker .env
+# sudo chmod -R 777 .
 echo -e "\e[94mPhp module configured\e[0m";
 
 echo -e "\e[94mConfigure node module:\e[0m";
@@ -34,7 +34,7 @@ cd ../locketgo-lms-node
 # else
 # 	sudo cp .env.example.docker.mac .env
 # fi
-sudo cp .env.example.docker .env
+cp .env.example.docker .env
 echo -e "\e[94mNode module configured\e[0m";
 
 cd ..

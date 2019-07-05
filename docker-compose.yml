@@ -7,7 +7,7 @@ services:
             dockerfile: docker/Nginx.Dockerfile
         restart: always
         ports:
-            - 80:80
+            - 8098:80
         #     - 8098:80  
         volumes:
             - ./locketgo-lms-php:/var/www/locketgo-lms-php
