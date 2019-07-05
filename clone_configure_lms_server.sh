@@ -15,26 +15,26 @@ echo -e "\e[36mStarting configre module:\e[0m";
 echo -e "\e[94mConfigure php module:\e[0m";
 cd locketgo-lms-php
 # copy env file depends on system type
-# if [[ $OSTYPE =~ "linux-gnu" ]];
-# then
-# 	sudo cp .env.example.docker.linux .env
-# else
-# 	sudo cp .env.example.docker.mac .env
-# fi
-cp .env.example.docker .env
+if [[ $OSTYPE =~ "linux-gnu" ]];
+then
+	cp .env.example.docker.linux .env
+else
+	cp .env.example.docker.mac .env
+fi
+# cp .env.example.docker .env
 # sudo chmod -R 777 .
 echo -e "\e[94mPhp module configured\e[0m";
 
 echo -e "\e[94mConfigure node module:\e[0m";
 cd ../locketgo-lms-node
 # copy env file depends on system type
-# if [[ $OSTYPE =~ "linux-gnu" ]];
-# then
-# 	sudo cp .env.example.docker.linux .env
-# else
-# 	sudo cp .env.example.docker.mac .env
-# fi
-cp .env.example.docker .env
+if [[ $OSTYPE =~ "linux-gnu" ]];
+then
+	cp .env.example.docker.linux .env
+else
+	cp .env.example.docker.mac .env
+fi
+# cp .env.example.docker .env
 echo -e "\e[94mNode module configured\e[0m";
 
 cd ..
