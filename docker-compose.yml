@@ -48,7 +48,7 @@ services:
         command: bash -c "npm run start"
         extra_hosts: 
             - "dockerhost:$DOCKERHOST"
-            - "web_server_ip:192.168.0.100"
+            - "web_server_ip:192.168.88.129"
         links:
             # - mysql
             - redis
