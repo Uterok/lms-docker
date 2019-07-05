@@ -16,7 +16,7 @@ services:
             - ../locketgo-lms-php:/var/www/locketgo-lms-php
             - ../sync_containers:/var/www/sync_containers
         working_dir: /var/www/locketgo-lms-php
-        command: bash -c "/var/www/sync_containers/wait-for-it.sh pgsql:5432 -- php artisan key:generate && php artisan migrate && php artisan db:seed && chown -R www-data:www-data . && chmod -R 777 ."
+        command: bash -c "/var/www/sync_containers/wait-for-it.sh pgsql:5432 --timeout=300 -- php artisan key:generate && php artisan migrate && php artisan db:seed && chown -R www-data:www-data . && chmod -R 777 ."
         links:
             - pgsql
 

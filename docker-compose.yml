@@ -28,7 +28,7 @@ services:
             - ./supervisor/config:/etc/supervisor
             - ./supervisor/logs:/var/www/supervisor-logs
             - ./sync_containers:/var/www/sync_containers
-        command: bash -c "/var/www/sync_containers/wait-for-it.sh pgsql:5432 -- supervisord -c /etc/supervisor/supervisord.conf"
+        command: bash -c "/var/www/sync_containers/wait-for-it.sh pgsql:5432 --timeout=300 -- supervisord -c /etc/supervisor/supervisord.conf"
         extra_hosts:
             - "web_server_ip:192.168.0.100"
         links:
